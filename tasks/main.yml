@@ -10,19 +10,9 @@
       paths:
         - '{{ role_path }}/vars'
 
-- name: install unarchive module pkgs...
+- name: install unarchive ansible module required OS pkgs...
   become: '{{ unarchivedeps_privilege_escalation }}'
   become_user: '{{ unarchivedeps_privilege_escalation_user }}'
-  block:
-    - name: install OS packages
-      when: ansible_os_family != "Windows"
-      package:
-        name: '{{ unarchivedeps_all_pkgs + unarchivedeps_tar_pkgs + unarchivedeps_xz_pkgs }}'
-        state: present
-    - name: install PowerShell module
-      when: ansible_os_family == "Windows"
-      loop: "{{ unarchivedeps_win_modules }}"
-      win_psmodule:
-        name: "{{ item }}"
-        allow_clobber: true
-        state: present
+  package:
+    name: '{{ unarchivedeps_all_pkgs + unarchivedeps_tar_pkgs + unarchivedeps_xz_pkgs }}'
+    state: present
