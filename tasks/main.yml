@@ -1,6 +1,6 @@
 ---
-- name: resolve platform specific vars
-  include_vars: "{{ item }}"
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
         - "{{ ansible_distribution }}-{{ ansible_distribution_release | default(ansible_distribution_major_version) }}.yml"
@@ -10,9 +10,9 @@
       paths:
         - '{{ role_path }}/vars'
 
-- name: install unarchive ansible module required OS pkgs...
+- name: Install unarchive ansible module required OS pkgs...
   become: '{{ unarchivedeps_privilege_escalation }}'
   become_user: '{{ unarchivedeps_privilege_escalation_user }}'
-  package:
+  ansible.builtin.package:
     name: '{{ unarchivedeps_all_pkgs + unarchivedeps_tar_pkgs + unarchivedeps_xz_pkgs }}'
     state: present
