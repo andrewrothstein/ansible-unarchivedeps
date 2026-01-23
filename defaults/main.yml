@@ -5,6 +5,7 @@ unarchivedeps_all_pkgs:
   - unzip
   - gzip
   - bzip2
+  - zstd
 unarchivedeps_tar_pkgs:
   - tar
 unarchivedeps_xz_pkgs:
